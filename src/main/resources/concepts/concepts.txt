@@ -1,0 +1,4 @@
+The file into named "application.properties" that we can find inside resource folder, gonna contains all properties related
+to our application, as environment values and more.
+
+Static folder is where we gonna do the web development (html, css, js, etc)

@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Getter
 @Setter
@@ -23,26 +24,30 @@ public class Student {
     )
     private Long id;
     private String name;
+
+    @Transient //esta quiere decir que no es necesario crear una columna en la DB pues teniendo la fecha de nacimiento, haremos el calculo para retornarlo cuando sea necesario
     private Integer age;
     private LocalDate dateOfBirthday;
     private String email;
 
-    public Student(Long id, String name, Integer age, LocalDate dateOfBirthday, String email) {
+    public Student(Long id, String name, LocalDate dateOfBirthday, String email) {
         this.id = id;
         this.name = name;
-        this.age = age;
         this.dateOfBirthday = dateOfBirthday;
         this.email = email;
     }
 
-    public Student(String name, Integer age, LocalDate dateOfBirthday, String email) {
+    public Student(String name, LocalDate dateOfBirthday, String email) {
         this.name = name;
-        this.age = age;
         this.dateOfBirthday = dateOfBirthday;
         this.email = email;
     }
 
     public Student() {
 
+    }
+
+    public Integer getAge() {
+        return Period.between(dateOfBirthday, LocalDate.now()).getYears();
     }
 }

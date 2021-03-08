@@ -2,3 +2,8 @@ The file into named "application.properties" that we can find inside resource fo
 to our application, as environment values and more.
 
 Static folder is where we gonna do the web development (html, css, js, etc)
+
+Hibernate is a tool used to mapping objects with database and JPA is a tool who allow us to generate as easy as possible queries to interact with DDBB
+
+En el archivo de propiedades fue agregado el server.error.include-message=always y con esto le estamos diciendo que cada vez que haya un error
+en lugar de imprimir un mensaje vacio, me muestre el mensaje de la excepción que hemos asignado

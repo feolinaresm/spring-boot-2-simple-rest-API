@@ -1,0 +1,4 @@
+Si deseas ejecutar tu archivo Jar desde la consola puedes usar el siguiente comando:
+
+java -jar ".jar name" y se ejecutará en el puerto por default
+si deseas correr varias instancias al mismo tiempo solo debes agregar el comando --server-port = "newPort" al final

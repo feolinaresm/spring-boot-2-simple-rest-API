@@ -2,8 +2,10 @@ package com.spring.api.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 //Para poder usar nuestras clases en un aplicativo Rest, estos deben ser JavaBeans, usando @Component, pero existe una más especifica:
@@ -28,5 +30,29 @@ public class StudentService {
             throw new IllegalStateException("Email is already in use"); //Si queremos podemos crear nuestra propia excepción
         }
         studentRepository.save(student);
+    }
+
+    public void deleteStudent(Long id){
+        boolean exists = studentRepository.existsById(id);
+        if (!exists){
+            throw new IllegalStateException("Student with id: " + id + " does not exists.");
+        }
+        studentRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void updateStudent(Long id, String name, String email){
+        Student student = studentRepository.findById(id).orElseThrow(() -> new IllegalStateException("Student was not found!"));
+        if (name != null && name.length() > 0 && !Objects.equals(student.getName(), name)){
+            student.setName(name);
+        }
+
+        if (email != null && email.length() > 0 && !Objects.equals(student.getEmail(), email)){
+            Optional<Student> studentOptional = studentRepository.findByEmail(email);
+            if (studentOptional.isPresent()){
+                throw new IllegalStateException("Email already exists!");
+            }
+            student.setEmail(email);
+        }
     }
 }

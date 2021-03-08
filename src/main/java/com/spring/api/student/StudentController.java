@@ -25,4 +25,14 @@ public class StudentController {
     public void newStudent(@RequestBody /*Esta anotación nos dice que el parametro será proveido desde el cliente, y hará el mapeado del objeto*/ Student student) {
         studentService.addNewStudent(student);
     }
+
+    @DeleteMapping(path = "{studentId}")
+    public void deleteStudent(@PathVariable("studentId") Long id){
+        studentService.deleteStudent(id);
+    }
+
+    @PutMapping(path = "{studentId}")
+    public void updateStudent(@PathVariable("studentId") Long id, @RequestParam(required = false) String name, @RequestParam(required = false) String email){
+        studentService.updateStudent(id, name, email);
+    }
 }
